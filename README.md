@@ -15,3 +15,4 @@ STEP 5:SETUP YOUR DATABASE IN SETTINGS.PY FILES (postgres)
 STEP 6:RUN MIGRATION COMMAND(python3 manage.py migrate)
 
 STEP 7: RUN YOUR PROJECT USING COMMAND (python3 manage.py runserver)
+# crafttrails
