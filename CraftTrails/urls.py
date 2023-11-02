@@ -21,4 +21,9 @@ urlpatterns = [
     path("craft/",include("Craftapp.urls")),
     path("Admin/",include("Adminapp.urls")),
     path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+    # path('auth/', include('rest_framework_social_oauth2.urls')),
+    # path('auth/', include('social_django.urls', namespace='social')),
+    path('accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.socialaccount.urls')),
+
 ]

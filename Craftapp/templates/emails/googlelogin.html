@@ -1,0 +1,11 @@
+{% load socialaccount %}
+<html>
+<body>
+
+
+<h2>Sign in with Google</h2>
+<a href="{% provider_login_url 'google' %}">Login with Google</a>
+
+</body>
+</html>
+<script src="https://apis.google.com/js/platform.js" async defer></script>

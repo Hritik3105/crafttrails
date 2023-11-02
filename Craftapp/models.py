@@ -17,6 +17,7 @@ class AbstractTimestampedModel(models.Model):
 
 
 class User(AbstractBaseUser,PermissionsMixin,AbstractTimestampedModel):
+    username=models.CharField(default="test",max_length=255)
     first_name  = models.CharField(max_length=30,default="")
     last_name  = models.CharField(max_length=30,default="")
     email 		= models.EmailField(_('email'),unique=True)

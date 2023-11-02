@@ -42,8 +42,51 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',     
     'Craftapp',
-    'django_rest_passwordreset',  
+    'django_rest_passwordreset', 
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
 ]
+
+
+# OAuth2 Provider settings
+AUTHENTICATION_BACKENDS = [
+        'allauth.account.auth_backends.AuthenticationBackend',
+
+]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': config("GOOGLE_AUTH"),
+            'secret': config("SECRET"),
+         },
+        'SCOPE': ['email'],
+        'AUTH_PARAMS': {'access_type': 'online'},
+        'INIT_PARAMS': {'redirect_uri': 'http://127.0.0.1:8000/accounts/google/login/callback/'}
+    
+    }
+}
+
+
+LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/accounts/google/login/'
+
+SOCIAL_AUTH_PIPELINE = (
+    
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
+
+AUTHENTICATION_CLASSES = (
+    
+    'rest_framework_social_oauth2.authentication.SocialAuthentication',
+)
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,6 +98,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'CraftTrails.urls'
@@ -92,29 +136,29 @@ WSGI_APPLICATION = 'CraftTrails.wsgi.application'
 # }
 
 
-# DATABASES={
-#    'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': config("NAME"),
-#         'USER': config("USERS"),
-#         'PASSWORD': config("PASSWORD"),
-#         'HOST': config("HOST"),
-#         'PORT': config("PORT"),
-#     }
-# }
-
-
-
 DATABASES={
    'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config("LIVENAME"),
-        'USER': config("LIVEUSERS"),
-        'PASSWORD': config("LIVEPASSWORD"),
-        'HOST': config("LIVEHOST"),
+        'NAME': config("NAME"),
+        'USER': config("USERS"),
+        'PASSWORD': config("PASSWORD"),
+        'HOST': config("HOST"),
         'PORT': config("PORT"),
     }
 }
+
+
+
+# DATABASES={
+#    'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': config("LIVENAME"),
+#         'USER': config("LIVEUSERS"),
+#         'PASSWORD': config("LIVEPASSWORD"),
+#         'HOST': config("LIVEHOST"),
+#         'PORT': config("PORT"),
+#     }
+# }
 
 CORS_ORIGIN_ALLOW_ALL = True
 
